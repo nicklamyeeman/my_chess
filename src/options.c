@@ -5,7 +5,6 @@
 ** options
 */
 
-#include <ncurses.h>
 #include "chess.h"
 
 void color_options(void)

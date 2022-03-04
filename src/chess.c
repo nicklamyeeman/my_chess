@@ -5,8 +5,6 @@
 ** chess
 */
 
-#include <stdio.h>
-#include <ncurses.h>
 #include "chess.h"
 
 e_state game_print(config_t config, e_state state)

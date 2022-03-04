@@ -5,11 +5,6 @@
 ** menu
 */
 
-#include <unistd.h>
-#include <string.h>
-#include <ncurses.h>
-#include <stdlib.h>
-#include <ctype.h>
 #include "chess.h"
 
 menu_t get_yx_menu(char **menu)

@@ -5,10 +5,6 @@
 ** config
 */
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <ncurses.h>
 #include "chess.h"
 
 config_t init_config(void)

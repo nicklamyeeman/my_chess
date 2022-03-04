@@ -5,7 +5,6 @@
 ** keys
 */
 
-#include <ncurses.h>
 #include "chess.h"
 
 void check_player(e_state *state, config_t *config, int y, int x)

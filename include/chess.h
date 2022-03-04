@@ -5,6 +5,17 @@
 ** chess
 */
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <ctype.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/uio.h>
+#include <ncurses.h>
+
 #ifndef CHESS_H_
 #define CHESS_H_
 
@@ -53,6 +64,10 @@ typedef struct s_config
 
     menu_t yx_menu;
 } config_t;
+
+/* board */
+
+
 
 /* chess */
 

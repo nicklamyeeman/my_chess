@@ -5,10 +5,7 @@
 ** str to word ta
 */
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#include "chess.h"
 
 int nb_line(char *str, char separator)
 {
