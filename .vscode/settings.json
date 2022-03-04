@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "cstring": "c",
+        "test2.C": "cpp",
+        "chess.h": "c"
+    }
+}
