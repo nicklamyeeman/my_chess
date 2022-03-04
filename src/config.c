@@ -13,14 +13,14 @@ config_t init_config(void)
     char **menu = explode(menu_buffer, '\n');
     char **map = malloc(sizeof(char *) * 8);
     
-    for (int i = 0; i != 8; i++) {
-        if (i == 0 || i == 7)
-            map[i] = strdup("RNBKQBNR");
-        else if (i == 1 || i == 6)
-            map[i] = strdup("PPPPPPPP");
-        else
-            map[i] = strdup("--------");
-    }
+    map[0] = strdup("RbNbBbKbQbBbNbRb");
+    map[1] = strdup("PbPbPbPbPbPbPbPb");
+    map[2] = strdup("----------------");
+    map[3] = strdup("----------------");
+    map[4] = strdup("----------------");
+    map[5] = strdup("----------------");
+    map[6] = strdup("PwPwPwPwPwPwPwPw");
+    map[7] = strdup("RwNwBwKwQwBwNwRw");
     config_t config = update_config(DEFAULT_CONFIG, 2, 8, map);
     config.yx_menu = get_yx_menu(menu);
     return (config);

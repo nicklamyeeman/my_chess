@@ -7,6 +7,13 @@
 
 #include "chess.h"
 
+int array_len(char **array)
+{
+	int i = 0;
+	for (i = 0; array[i] != NULL; i++);
+	return i;
+}
+
 int usage(int return_value)
 {
 	if (return_value == 84)

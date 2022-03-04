@@ -18,6 +18,8 @@ e_state game_print(config_t config, e_state state)
     if (state == CLEAR_GAME_STATE) {
         clear();
         refresh();
+        print_board(config);
+        print_pieces(config);
         return (GAME_STATE);
     }
     return state;
@@ -35,6 +37,8 @@ void game_loop()
         k = wgetch(stdscr);
         if (k == KEY_MOUSE)
             state = manage_key_mouse(&config, state);
+        if (k == 32 && state == GAME_STATE)
+            state = CLEAR_MENU_STATE;
         state = game_print(config, state);
     }
     endwin();

@@ -20,6 +20,7 @@
 #define CHESS_H_
 
 #define MENU    "./ressources/menu.txt"
+#define BOARD   "./ressources/board.txt"
 
 #define ROCK    "./ressources/pieces/rock.txt"
 #define PAWN    "./ressources/pieces/pawn.txt"
@@ -67,7 +68,20 @@ typedef struct s_config
 
 /* board */
 
+    /**
+     * @brief free the board after printed
+     * 
+     * @param {char *} board_buffer - buffer read from file of the board 
+     * @param {char **} board - array where the board is stocked 
+     */
+    void free_board(char *board_buffer, char **board);
 
+    /**
+     * @brief print the board 
+     * 
+     * @param {config_t} config - config struct where is stocked usefull information like size and pieces placement 
+     */
+    void print_board(config_t config);
 
 /* chess */
 
@@ -209,6 +223,14 @@ typedef struct s_config
     void menu_config(char **menu, int i, int j, config_t config);
 
     /**
+     * @brief free the menu loaded
+     * 
+     * @param {char *} menu_buffer - menu buffer read from file
+     * @param {char **} menu - array where the menu is stocked 
+     */
+    void free_menu(char *menu_buffer, char **menu);
+
+    /**
      * @brief print the menu of the game
      * 
      * @param {config_t} config - the config selected in the menu
@@ -229,7 +251,42 @@ typedef struct s_config
      */
     void color_options(void);
 
+/* pieces */
+
+    /**
+     * @brief free the pice buffer and array
+     * 
+     * @param {char *} piece_buffer - buffer ocntaining the piece asset
+     * @param {char **} piece - array of the piece 
+     */
+    void free_piece(char *piece_buffer, char **piece);
+
+    /**
+     * @brief load, print and then free the piece to draw
+     * 
+     * @param {char *} assetpath - path to the ressource asset 
+     * @param {int} i - y axis where to draw 
+     * @param {int} j - x axis where to draw 
+     * @param {char} color - b or w to chose the color 
+     */
+    void load_print_piece(char *assetpath, int i, int j, char color);
+
+    /**
+     * @brief print all pieces in the board
+     * 
+     * @param {config_t} config - config file where are stocked pices placement
+     */
+    void print_pieces(config_t config);
+
 /* tools */
+
+    /**
+     * @brief calculate the number of line of an array
+     * 
+     * @param {char **} array - array to get the size 
+     * @return {int} array size 
+     */
+    int array_len(char **array);
 
     /**
      * @brief prompt usage of binary

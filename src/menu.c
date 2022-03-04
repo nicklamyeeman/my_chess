@@ -45,6 +45,14 @@ void menu_config(char **menu, int i, int j, config_t config)
         attron(YLLW_ON_BLCK);
 }
 
+void free_menu(char *menu_buffer, char **menu)
+{
+    free(menu_buffer);
+    for (int i = 0; menu[i] != NULL; i++)
+        free(menu[i]);
+    free(menu);
+}
+
 void print_menu(config_t config)
 {
     char *menu_buffer = open_read_file(MENU);
@@ -57,4 +65,5 @@ void print_menu(config_t config)
         }
         printw("\n");
     }
+    free_menu(menu_buffer, menu);
 }

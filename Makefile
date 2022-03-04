@@ -14,6 +14,7 @@ SRC		=	$(SRC_DIR)/board.c			\
 			$(SRC_DIR)/keys.c			\
 			$(SRC_DIR)/menu.c			\
 			$(SRC_DIR)/options.c		\
+			$(SRC_DIR)/pieces.c			\
 			$(SRC_DIR)/tools.c			\
 			$(SRC_DIR)main.c
 
