@@ -54,25 +54,22 @@ typedef struct s_config
     menu_t yx_menu;
 } config_t;
 
-/* tools */
-
-    /**
-     * @brief prompt usage of binary
-     * 
-     * @param {int} return_value - value to return the binary
-     * @return {int} return the value passed as argument
-     */
-    int usage(int return_value);
-
-    /**
-     * @brief Open, Read and Return a file content
-     * 
-     * @param {char *} filepath - path to the file to open
-     * @return {char *} contains the content of the file
-     */
-    char *open_read_file(char *filepath);
-
 /* chess */
+
+    /**
+     * @brief print in the terminal regarding the state and chenge it back to now print in loop
+     * 
+     * @param {config_t} config - config struct where menu usefull pos are stock 
+     * @param {e_state} state - state of the current window 
+     * @return {e_state} the new state if changed or current if not 
+     */
+    e_state game_print(config_t config, e_state state);
+
+    /**
+     * @brief loop of the main game
+     * 
+     */
+    void game_loop();
 
     /**
      * @brief main loop
@@ -80,58 +77,6 @@ typedef struct s_config
      * @return {int} return value of the binary
      */
     int my_chess();
-
-/* keys */
-
-    /**
-     * @brief manage the event of the mouse and check where is clicked
-     * 
-     * @param {config *} config - adress of the config to update the config
-     * @param {e_state} state - where are we in the game ?  
-     * @return {e_state} where will we be in the game 
-     */
-    e_state manage_key_mouse(config_t *config, e_state state);
-
-/* options */
-
-    /**
-     * @brief options for ncurses window
-     * 
-     */
-    void options(void);
-
-    /**
-     * @brief set up color pairs
-     * 
-     */
-    void color_options(void);
-
-/* menu */
-
-    /**
-     * @brief print the menu of the game
-     * 
-     * @param {config_t} config - the config selected in the menu
-     */
-    void print_menu(config_t config);
-
-    /**
-     * @brief change color of the menu regarding the configs
-     * 
-     * @param {char **} menu - menu map that is displayed
-     * @param {int} i - y axis (lines) 
-     * @param {int} j - x axis (col) 
-     * @param {config_t} config - the config chosen for the menu
-     */
-    void menu_config(char **menu, int i, int j, config_t config);
-
-    /**
-     * @brief Get the usefull xy of the menu 
-     * 
-     * @param {char **} menu - the menu  
-     * @return {menu_t} the struct containing all the usefull xy of the menu  
-     */
-    menu_t get_yx_menu(char **menu);
 
 /* config */
 
@@ -163,6 +108,24 @@ typedef struct s_config
 /* explode */
 
     /**
+     * @brief count the number of line of the future array
+     * 
+     * @param {char *} str - string to explode 
+     * @param {char} separator - separator for the future array 
+     * @return {int} number of line of the future array 
+     */
+    int nb_line(char *str, char separator);
+
+    /**
+     * @brief malloc the array for explode 
+     * 
+     * @param {char *} str - string to explode 
+     * @param {char} separator - separator for the future array 
+     * @return {char**} the array malloc'ed
+     */
+    char **malloc_array(char *str, char separator);
+    
+    /**
      * @brief transform string to array with separator
      * 
      * @param {char *} str - string to explode
@@ -170,5 +133,103 @@ typedef struct s_config
      * @return {char **} the array exploded
      */
     char **explode(char *str, char separator);
+
+/* keys */
+
+    /**
+     * @brief check if click on the number of players in menu state
+     * 
+     * @param {e_state} state - state that can be modified if clicked 
+     * @param {config_t} config - the config struct where are stocked every usefull menu coords 
+     * @param {int} y - event click mouse position in y axis
+     * @param {int} x - event click mouse position in x axis 
+     */
+    void check_player(e_state *state, config_t *config, int y, int x);
+
+        /**
+     * @brief check if click on the placement configuration in menu state
+     * 
+     * @param {e_state} state - state that can be modified if clicked 
+     * @param {config_t} config - the config struct where are stocked every usefull menu coords 
+     * @param {int} y - event click mouse position in y axis
+     */
+    void check_placement(e_state *state, config_t *config, int y);
+
+    /**
+     * @brief check if click on the play button in menu state
+     * 
+     * @param {e_state} state - state that can be modified if clicked 
+     * @param {config_t} config - the config struct where are stocked every usefull menu coords 
+     * @param {int} y - event click mouse position in y axis
+     */
+    void check_play(e_state *state, config_t *config, int y);
+
+    /**
+     * @brief manage the event of the mouse and check where is clicked
+     * 
+     * @param {config *} config - adress of the config to update the config
+     * @param {e_state} state - where are we in the game ?  
+     * @return {e_state} where will we be in the game 
+     */
+    e_state manage_key_mouse(config_t *config, e_state state);
+
+/* menu */
+
+    /**
+     * @brief Get the usefull xy of the menu 
+     * 
+     * @param {char **} menu - the menu  
+     * @return {menu_t} the struct containing all the usefull xy of the menu  
+     */
+    menu_t get_yx_menu(char **menu);
+
+    /**
+     * @brief change color of the menu regarding the configs
+     * 
+     * @param {char **} menu - menu map that is displayed
+     * @param {int} i - y axis (lines) 
+     * @param {int} j - x axis (col) 
+     * @param {config_t} config - the config chosen for the menu
+     */
+    void menu_config(char **menu, int i, int j, config_t config);
+
+    /**
+     * @brief print the menu of the game
+     * 
+     * @param {config_t} config - the config selected in the menu
+     */
+    void print_menu(config_t config);
+
+/* options */
+
+    /**
+     * @brief options for ncurses window
+     * 
+     */
+    void options(void);
+
+    /**
+     * @brief set up color pairs
+     * 
+     */
+    void color_options(void);
+
+/* tools */
+
+    /**
+     * @brief prompt usage of binary
+     * 
+     * @param {int} return_value - value to return the binary
+     * @return {int} return the value passed as argument
+     */
+    int usage(int return_value);
+
+    /**
+     * @brief Open, Read and Return a file content
+     * 
+     * @param {char *} filepath - path to the file to open
+     * @return {char *} contains the content of the file
+     */
+    char *open_read_file(char *filepath);
 
 #endif /* !CHESS_H_ */

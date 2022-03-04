@@ -16,8 +16,10 @@
 
 int usage(int return_value)
 {
-    printf("USAGE\n");
-    printf("\t./my_chess\n");
+	if (return_value == 84)
+	    fprintf(stderr, "USAGE\n\t./my_chess\n");	
+	else
+	    printf("USAGE\n\t./my_chess\n");
     return (return_value);
 }
 
