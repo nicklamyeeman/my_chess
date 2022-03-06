@@ -333,10 +333,10 @@ typedef struct s_config
      * 
      * @param {int} y - line to start to print 
      * @param {int} x - col to start to print
-     * @param {char} color - color 'w' or 'b' 
      * @param {char} piece - piece to draw 
+     * @param {char} color - color 'w' or 'b' 
      */
-    void print_piece_at(int y, int x, char color, char piece);
+    void print_piece_at(int y, int x, char piece, char color);
 
 /* tools */
 
@@ -374,6 +374,26 @@ typedef struct s_config
 
 /* pieces/pawn */
 
+    /**
+     * @brief check all possibility of the pawn attack move and return the possibilities
+     * 
+     * @param {config_t} config - config struct where are the board size and the board 
+     * @param {game_t} game - game struct where is the selected piece 
+     * @param {char **} possibilities - array of possibilities being fill 
+     * @param {int} i - the position of actual array to fill 
+     * @return {char **} array of the different possibilities 
+     */
+    char **check_pawn_atk(config_t config, game_t game, char **possibilities, int *i);
+
+    /**
+     * @brief check all possibility of the pawn move and return the possibilities
+     * 
+     * @param {config_t} config - config struct where are the board size and the board 
+     * @param {game_t} game - game struct where is the selected piece 
+     * @return {char **} array of the different possibilities 
+     */
+    char **check_pawn_move(config_t config, game_t game);
+    
     /**
      * @brief check move of the pawn and 
      * 

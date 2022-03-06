@@ -75,5 +75,8 @@ void manage_key_mouse(config_t *config, game_t *game)
         if (game->state == GAME_STATE_W) {
             check_game_case(config, game, event, 'w');
         }
+        if (game->state == GAME_STATE_B) {
+            check_game_case(config, game, event, 'b');
+        }
     }
 }

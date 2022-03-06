@@ -15,10 +15,10 @@ config_t init_config(void)
     
     map[0] = strdup("RbNbBbKbQbBbNbRb");
     map[1] = strdup("PbPbPbPbPbPbPbPb");
-    map[2] = strdup("----------------");
+    map[2] = strdup("----Pw----Pb----");
     map[3] = strdup("----------------");
     map[4] = strdup("----------------");
-    map[5] = strdup("----------------");
+    map[5] = strdup("--------Pw--Pb--");
     map[6] = strdup("PwPwPwPwPwPwPwPw");
     map[7] = strdup("RwNwBwKwQwBwNwRw");
     map[8] = NULL;
