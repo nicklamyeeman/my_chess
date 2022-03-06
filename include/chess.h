@@ -31,13 +31,16 @@
 
 #define YLLW_ON_BLCK COLOR_PAIR(1)
 #define BLCK_ON_YLLW COLOR_PAIR(2)
+#define BLCK_ON_CYAN COLOR_PAIR(3)
+#define BLCK_ON_MGNT COLOR_PAIR(4)
 
 typedef enum
 {
     CLEAR_MENU_STATE,
     MENU_STATE,
     CLEAR_GAME_STATE,
-    GAME_STATE
+    GAME_STATE_W,
+    GAME_STATE_B
 } e_state;
 
 typedef enum
@@ -45,6 +48,13 @@ typedef enum
     DEFAULT_CONFIG,
     CUSTOM_CONFIG
 } e_config;
+
+typedef enum
+{
+    SELECT_PIECE,
+    SELECT_DEST,
+    NEXT_TURN
+} e_turn;
 
 typedef struct s_menu
 {
@@ -56,11 +66,21 @@ typedef struct s_menu
     int y_play;
 } menu_t;
 
+typedef struct s_game
+{
+    e_state state;
+    e_turn turn;
+    char **history;
+    char *selected_piece;
+} game_t;
+
 typedef struct s_config
 {
     e_config state;
     int player;
     int board_size;
+    int y_case_size;
+    int x_case_size;
     char **placement;
 
     menu_t yx_menu;
@@ -89,10 +109,10 @@ typedef struct s_config
      * @brief print in the terminal regarding the state and chenge it back to now print in loop
      * 
      * @param {config_t} config - config struct where menu usefull pos are stock 
-     * @param {e_state} state - state of the current window 
+     * @param {game_t} game - game struct containing the state of the game 
      * @return {e_state} the new state if changed or current if not 
      */
-    e_state game_print(config_t config, e_state state);
+    e_state game_print(config_t config, game_t game);
 
     /**
      * @brief loop of the main game
@@ -163,44 +183,74 @@ typedef struct s_config
      */
     char **explode(char *str, char separator);
 
+/* game */
+
+    /**
+     * @brief init gmae struct for the game
+     * 
+     * @return {game_t} the initialized struct 
+     */
+    game_t init_game(void);
+
+    /**
+     * @brief highilight selected pieces and possibility of move
+     * 
+     * @param {config_t} config - config struct containing usefull informations  
+     * @param {game_t} game - game struct containing the game options and history mainly 
+     * @param {int} normalize_y - position of clicked piece in line / y axis 
+     * @param {int} normalize_x - position of clicked piece in column / x axis 
+     * @return {e_turn} which color turn will it be  
+     */
+    e_turn highlight_piece(config_t config, game_t *game, int normalize_y, int normalize_x);
+
 /* keys */
 
     /**
      * @brief check if click on the number of players in menu state
      * 
-     * @param {e_state} state - state that can be modified if clicked 
-     * @param {config_t} config - the config struct where are stocked every usefull menu coords 
+     * @param {config_t *} config - the config struct where are stocked every usefull menu coords 
+     * @param {game_t *} game - the game struct containing the state 
      * @param {int} y - event click mouse position in y axis
      * @param {int} x - event click mouse position in x axis 
      */
-    void check_player(e_state *state, config_t *config, int y, int x);
+    void check_menu_player(config_t *config, game_t *game, int y, int x);
 
         /**
      * @brief check if click on the placement configuration in menu state
      * 
-     * @param {e_state} state - state that can be modified if clicked 
-     * @param {config_t} config - the config struct where are stocked every usefull menu coords 
+     * @param {config_t *} config - the config struct where are stocked every usefull menu coords 
+     * @param {game_t *} game - the game struct containing the state 
      * @param {int} y - event click mouse position in y axis
      */
-    void check_placement(e_state *state, config_t *config, int y);
+    void check_menu_placement(config_t *config, game_t *game, int y);
 
     /**
      * @brief check if click on the play button in menu state
      * 
-     * @param {e_state} state - state that can be modified if clicked 
-     * @param {config_t} config - the config struct where are stocked every usefull menu coords 
+     * @param {config_t *} config - the config struct where are stocked every usefull menu coords 
+     * @param {game_t *} game - the game struct containing the state 
      * @param {int} y - event click mouse position in y axis
      */
-    void check_play(e_state *state, config_t *config, int y);
+    void check_menu_play(config_t *config, game_t *game, int y);
+
+    /**
+     * @brief check where the click is
+     * 
+     * @param {config_t *} config - game config struct where are stocked usefull informations 
+     * @param {game_t *} game - the game struct
+     * @param {MEVENT} event - mouse event containing the mouse position
+     * @param {char} color - color of the player's turn (white or black)
+     * @return {e_state} new state of the game (turn off or not) 
+     */
+    void check_game_case(config_t *config, game_t *game, MEVENT event, char color);
 
     /**
      * @brief manage the event of the mouse and check where is clicked
      * 
      * @param {config *} config - adress of the config to update the config
-     * @param {e_state} state - where are we in the game ?  
-     * @return {e_state} where will we be in the game 
+     * @param {game_t *} game - game struct   
      */
-    e_state manage_key_mouse(config_t *config, e_state state);
+    void manage_key_mouse(config_t *config, game_t *game);
 
 /* menu */
 
@@ -278,7 +328,25 @@ typedef struct s_config
      */
     void print_pieces(config_t config);
 
+    /**
+     * @brief print a piece at the position sent
+     * 
+     * @param {int} y - line to start to print 
+     * @param {int} x - col to start to print
+     * @param {char} color - color 'w' or 'b' 
+     * @param {char} piece - piece to draw 
+     */
+    void print_piece_at(int y, int x, char color, char piece);
+
 /* tools */
+
+    /**
+     * @brief free ressource loaded previously
+     * 
+     * @param {char *} buffer - buffer read from file
+     * @param {char **} exploded - exploded buffer 
+     */
+    void free_ressource(char *buffer, char **exploded);
 
     /**
      * @brief calculate the number of line of an array
@@ -303,5 +371,16 @@ typedef struct s_config
      * @return {char *} contains the content of the file
      */
     char *open_read_file(char *filepath);
+
+/* pieces/pawn */
+
+    /**
+     * @brief check move of the pawn and 
+     * 
+     * @param {config_t} config - config struct where is the board 
+     * @param {game_t *} game - game struct where is the history and selected piece 
+     * @return {int} is the piece blocked ? 
+     */
+    int pawn_move(config_t config, game_t game);
 
 #endif /* !CHESS_H_ */

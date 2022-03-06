@@ -7,28 +7,28 @@
 
 #include "chess.h"
 
-e_state game_print(config_t config, e_state state)
+e_state game_print(config_t config, game_t game)
 {
-    if (state == CLEAR_MENU_STATE) {
+    if (game.state == CLEAR_MENU_STATE) {
         clear();
         refresh();
         print_menu(config);
         return (MENU_STATE);
     }
-    if (state == CLEAR_GAME_STATE) {
+    if (game.state == CLEAR_GAME_STATE) {
         clear();
         refresh();
         print_board(config);
         print_pieces(config);
-        return (GAME_STATE);
+        return (GAME_STATE_W);
     }
-    return state;
+    return game.state;
 }
 
 void game_loop()
 {
-    e_state state = MENU_STATE;
     config_t config = init_config();
+    game_t game = init_game();
     int k = 0;
 
     options();
@@ -36,10 +36,10 @@ void game_loop()
     while (k != 27) {
         k = wgetch(stdscr);
         if (k == KEY_MOUSE)
-            state = manage_key_mouse(&config, state);
-        if (k == 32 && state == GAME_STATE)
-            state = CLEAR_MENU_STATE;
-        state = game_print(config, state);
+            manage_key_mouse(&config, &game);
+        if (k == 32 && (game.state == GAME_STATE_W || game.state == GAME_STATE_B))
+            game.state = CLEAR_MENU_STATE;
+        game.state = game_print(config, game);
     }
     endwin();
 }

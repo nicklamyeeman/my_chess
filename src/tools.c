@@ -7,6 +7,14 @@
 
 #include "chess.h"
 
+void free_ressource(char *buffer, char **exploded)
+{
+	free(buffer);
+	for (int i = 0; exploded[i] != NULL; i++)
+		free(exploded[i]);
+	free(exploded);
+}
+
 int array_len(char **array)
 {
 	int i = 0;
