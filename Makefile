@@ -7,17 +7,17 @@
 
 SRC_DIR	=	./src
 
-SRC		=	$(SRC_DIR)/board.c			\
-			$(SRC_DIR)/chess.c			\
-			$(SRC_DIR)/config.c			\
-			$(SRC_DIR)/explode.c		\
-			$(SRC_DIR)/game.c			\
-			$(SRC_DIR)/keys.c			\
-			$(SRC_DIR)/menu.c			\
-			$(SRC_DIR)/options.c		\
-			$(SRC_DIR)/pieces.c			\
-			$(SRC_DIR)/tools.c			\
-			$(SRC_DIR)/pieces/pawn.c	\
+SRC		=	$(SRC_DIR)/c_board.c			\
+			$(SRC_DIR)/c_chess.c			\
+			$(SRC_DIR)/c_config.c			\
+			$(SRC_DIR)/explode.c			\
+			$(SRC_DIR)/c_game.c				\
+			$(SRC_DIR)/c_keys.c				\
+			$(SRC_DIR)/c_menu.c				\
+			$(SRC_DIR)/c_options.c			\
+			$(SRC_DIR)/c_pieces.c			\
+			$(SRC_DIR)/c_tools.c			\
+			$(SRC_DIR)/pieces/c_pawn.c		\
 			main.c
 
 INC		=	-I ./include
