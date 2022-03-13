@@ -5,7 +5,7 @@
 ## Makefile
 ##
 
-SRC_DIR	=	./src/
+SRC_DIR	=	./src
 
 SRC		=	$(SRC_DIR)/board.c			\
 			$(SRC_DIR)/chess.c			\
@@ -18,7 +18,7 @@ SRC		=	$(SRC_DIR)/board.c			\
 			$(SRC_DIR)/pieces.c			\
 			$(SRC_DIR)/tools.c			\
 			$(SRC_DIR)/pieces/pawn.c	\
-			$(SRC_DIR)main.c
+			main.c
 
 INC		=	-I ./include
 
@@ -26,12 +26,17 @@ CFLAGS	+=	$(INC) -W -Wall -Wextra -g
 
 NCFLAGS =	-lncurses
 
+MEMLEAK	=	-fsanitize=address
+
 OBJ		=	$(SRC:.c=.o)
 
 NAME	=	my_chess
 
 all:	$(OBJ)
 	gcc -o $(NAME) $(OBJ) $(NCFLAGS)
+
+memory-leak: $(OBJ)
+	gcc -o $(NAME) $(OBJ) $(MEMLEAK) $(NCFLAGS)
 
 clean:
 	rm -f $(OBJ)

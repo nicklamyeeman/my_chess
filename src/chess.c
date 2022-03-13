@@ -7,45 +7,54 @@
 
 #include "chess.h"
 
-e_state game_print(config_t config, game_t game)
+e_state game_state(chess_t *chess)
 {
-    if (game.state == CLEAR_MENU_STATE) {
+    if (chess->state == CLEAR_MENU_STATE) {
         clear();
         refresh();
-        print_menu(config);
+        print_menu(chess->menu, chess->config);
         return (MENU_STATE);
     }
-    if (game.state == CLEAR_GAME_STATE) {
+    if (chess->state == INIT_GAME_STATE) {
+        chess->game = set_pieces(chess->config, chess->game);
+        chess->state = CLEAR_GAME_STATE;
+    }
+    if (chess->state == CLEAR_GAME_STATE) {
         clear();
         refresh();
-        print_board(config);
-        print_pieces(config);
+        print_board(chess->config);
+        for (int k = 0; chess->game.pieces[k].ressource != NULL; k++)
+            print_piece(chess->game.pieces[k]);
         return (GAME_STATE_W);
     }
-    return game.state;
+    return chess->state;
 }
 
-void game_loop()
+void chess_loop(chess_t chess)
 {
-    config_t config = init_config();
-    game_t game = init_game();
     int k = 0;
 
     options();
-    print_menu(config);
+    print_menu(chess.menu, chess.config);
     while (k != 27) {
         k = wgetch(stdscr);
         if (k == KEY_MOUSE)
-            manage_key_mouse(&config, &game);
-        if (k == 32 && (game.state == GAME_STATE_W || game.state == GAME_STATE_B))
-            game.state = CLEAR_MENU_STATE;
-        game.state = game_print(config, game);
+            manage_key_mouse(&chess);
+        if (k == 32 && (chess.state == GAME_STATE_W || chess.state == GAME_STATE_B))
+            chess.state = CLEAR_MENU_STATE;
+        chess.state = game_state(&chess);
     }
     endwin();
 }
 
 int my_chess()
 {
-    game_loop();
+    chess_t chess;
+
+    chess.config = init_config();
+    chess.menu = init_menu();
+    chess.game = init_game();
+    chess.state = MENU_STATE;
+    chess_loop(chess);
     return 0;
 }

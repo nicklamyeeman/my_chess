@@ -7,20 +7,30 @@
 
 #include "chess.h"
 
+// char **check_pawn_spc(config_t config, game_t game, char **possibilities, int *i)
+// {
+//     char color = game.selected_piece[0];
+//     int y = config.board_size - atoi(game.selected_piece + 2);
+//     int x = (game.selected_piece[1] - 'A') * 2;
+//     int direction = (color == 'w') ? -1 : 1;
+
+//     return possibilities;
+// }
+
 char **check_pawn_atk(config_t config, game_t game, char **possibilities, int *i)
 {
-    char color = game.selected_piece[0];
-    int y = config.board_size - atoi(game.selected_piece + 2);
-    int x = (game.selected_piece[1] - 'A') * 2;
+    char color = game.selected_piece.color;
+    int y = game.selected_piece.y;
+    int x = game.selected_piece.x * 2;
     int direction = (color == 'w') ? -1 : 1;
 
     if (x > 1 &&
-        config.placement[y + direction][x - 2 + 1] != color &&
-        config.placement[y + direction][x - 2] != '-')
+        config.board[y + direction][x - 2 + 1] != color &&
+        config.board[y + direction][x - 2] != '-')
         asprintf(&possibilities[(*i)++], "%d%d", y + direction, (x - 2) / 2);
     if (x < (config.board_size - 1) * 2 &&
-        config.placement[y + direction][x + 2 + 1] != color &&
-        config.placement[y + direction][x + 2] != '-')
+        config.board[y + direction][x + 2 + 1] != color &&
+        config.board[y + direction][x + 2] != '-')
         asprintf(&possibilities[(*i)++], "%d%d", y + direction, (x + 2) / 2);
     possibilities[*i] = NULL;
     return possibilities;
@@ -28,40 +38,44 @@ char **check_pawn_atk(config_t config, game_t game, char **possibilities, int *i
 
 char **check_pawn_move(config_t config, game_t game)
 {
-    char **possibilities = NULL;
-    char color = game.selected_piece[0];
-    int y = config.board_size - atoi(game.selected_piece + 2);
-    int x = (game.selected_piece[1] - 'A') * 2;
+    char color = game.selected_piece.color;
+    int y = game.selected_piece.y;
+    int x = game.selected_piece.x * 2;
     int direction = (color == 'w') ? -1 : 1;
+    char **possibilities = NULL;
     int i = 0;
 
     possibilities = malloc(sizeof(char *) * 5);
-    if (config.placement[y + direction][x] == '-')
+    if (config.board[y + direction][x] == '-')
         asprintf(&possibilities[i++], "%d%d", y + direction, x / 2);
     if ((color == 'w' && y == config.board_size - 2) || (color == 'b' && y == 1)) {
-        if (config.placement[y+ direction][x] == '-' &&
-            config.placement[y + direction * 2][x] == '-')
+        if (config.board[y+ direction][x] == '-' &&
+            config.board[y + direction * 2][x] == '-')
             asprintf(&possibilities[i++], "%d%d", y + direction * 2, x / 2);
     }
+    possibilities[i] = NULL;
     return check_pawn_atk(config, game, possibilities, &i);
 }
 
-int pawn_move(config_t config, game_t game)
+void *pawn_highlight(chess_t *chess)
 {
-    char **possible_moves = check_pawn_move(config, game);
-    int y = 0;
-    int x = 0;
-
-    if (possible_moves == NULL)
-        return 1;
-    attron(BLCK_ON_CYAN);
-    for (int i = 0; possible_moves[i] != NULL; i++) {
-        y = possible_moves[i][0] - '0';
-        x = possible_moves[i][1] - '0';
-        print_piece_at(y, x, config.placement[y][x * 2], config.placement[y][x * 2 + 1]);
+    if (chess->game.selected_piece.possible_moves == NULL)
+        chess->game.selected_piece.possible_moves = check_pawn_move(chess->config, chess->game);
+    if (chess->game.selected_piece.possible_moves != NULL) {
+        attron(BLCK_ON_CYAN);
+        for (int i = 0; chess->game.selected_piece.possible_moves[i] != NULL; i++) {
+            int y = chess->game.selected_piece.possible_moves[i][0] - '0';
+            int x = chess->game.selected_piece.possible_moves[i][1] - '0';
+            piece_t h_piece = get_piece_at(chess->game.pieces, y, x);
+            if (h_piece.ressource == NULL)
+                print_board_at(chess->config, y, x);
+            else
+                print_piece(h_piece);
+        }
     }
-    for (int i = 0; possible_moves[i] != NULL; i++)
-        free(possible_moves[i]);
-    free(possible_moves);
-    return 0;
+}
+
+void *pawn_move(chess_t *chess)
+{
+    (void)chess;
 }
