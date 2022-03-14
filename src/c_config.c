@@ -10,11 +10,11 @@
 config_t init_config(void)
 {
     char **map = malloc(sizeof(char *) * 9);
-    map[0] = strdup("RbNbBbKbQbBbNbRb");
+    map[0] = strdup("NwNbPwKbQbBbNbRb");
     map[1] = strdup("PbPbPbPbPbPbPbPb");
-    map[2] = strdup("----Pw----Pb----");
+    map[2] = strdup("----PwQwKwPb----");
     map[3] = strdup("----------------");
-    map[4] = strdup("----------------");
+    map[4] = strdup("--QwQw--------Nw");
     map[5] = strdup("--------Pw--Pb--");
     map[6] = strdup("PwPwPwPwPwPwPwPw");
     map[7] = strdup("RwNwBwKwQwBwNwRw");

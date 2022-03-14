@@ -57,8 +57,8 @@ game_t set_pieces(config_t config, game_t game)
 {
     char *pieces = strdup("PRNBKQ");
     void *piece_ressource[6] = {PAWN, ROCK, KNIGHT, BISHOP, KING, QUEEN};
-    void *piece_move[6] = {&pawn_move, &pawn_move, &pawn_move, &pawn_move, &pawn_move, &pawn_move};
-    void *piece_highlight[6] = {&pawn_highlight, &pawn_highlight, &pawn_highlight, &pawn_highlight, &pawn_highlight, &pawn_highlight};
+    void *piece_move[6] = {&pawn_move, &rock_move, &knight_move, &bishop_move, &king_move, &queen_move};
+    void *piece_highlight[6] = {&pawn_highlight, &rock_highlight, &knight_highlight, &bishop_highlight, &king_highlight, &queen_highlight};
     char *ressource = NULL;
     int p = 0;
 

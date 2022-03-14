@@ -55,7 +55,7 @@ void check_game_case(chess_t *chess, MEVENT event, char color)
     if (piece.color == color) {
         (chess->game.selected_piece.ressource != NULL) ? clear_highlight(chess->config, &(chess->game)) : 0;
         chess->game.selected_piece = piece;
-        chess->game.turn = highlight_piece(chess, normalize_y, normalize_x);
+        chess->game.turn = highlight_piece(chess);
     // } else if (game->turn == SELECT_DEST) {
     //     game->turn = 
     } else {

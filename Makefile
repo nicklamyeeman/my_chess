@@ -18,6 +18,11 @@ SRC		=	$(SRC_DIR)/c_board.c			\
 			$(SRC_DIR)/c_pieces.c			\
 			$(SRC_DIR)/c_tools.c			\
 			$(SRC_DIR)/pieces/c_pawn.c		\
+			$(SRC_DIR)/pieces/c_king.c		\
+			$(SRC_DIR)/pieces/c_rock.c		\
+			$(SRC_DIR)/pieces/c_queen.c		\
+			$(SRC_DIR)/pieces/c_knight.c	\
+			$(SRC_DIR)/pieces/c_bishop.c	\
 			main.c
 
 INC		=	-I ./include

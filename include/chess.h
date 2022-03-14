@@ -66,8 +66,8 @@ typedef struct s_piece
     char color;
     char **ressource;
     char **possible_moves;
-    void *(*p_highlight)(void *);
-    void *(* p_move)(void *);
+    void (*p_highlight)(void *);
+    void (* p_move)(void *);
 } piece_t;
 
 typedef struct s_game
@@ -219,11 +219,9 @@ typedef struct s_chess
      * @brief highilight selected pieces and possibility of move
      * 
      * @param {chess_t *} chess - chess struct with config and game  
-     * @param {int} normalize_y - position of clicked piece in line / y axis 
-     * @param {int} normalize_x - position of clicked piece in column / x axis 
      * @return {e_turn} which color turn will it be  
      */
-    e_turn highlight_piece(chess_t *chess, int normalize_y, int normalize_x);
+    e_turn highlight_piece(chess_t *chess);
 
 /* keys */
 
@@ -416,30 +414,148 @@ typedef struct s_chess
      * @param {int} i - the position of actual array to fill 
      * @return {char **} array of the different possibilities 
      */
-    char **check_pawn_atk(config_t config, game_t game, char **possibilities, int *i);
+    char **check_pawn_atk(piece_t piece, config_t config, char **possibilities, int *i);
 
     /**
      * @brief check all possibility of the pawn move and return the possibilities
-     * 
-     * @param {chess_t *} chess - chess struct where is the history and selected piece 
+     * @param {piece_t} piece - piece to cehck move
+     * @param {config_t} config - config to check the board configuration
      * @return {char **} array of the different possibilities 
      */
-    char **check_pawn_move(config_t config, game_t game);
+    char **check_pawn_move(piece_t piece, config_t config);
     
     /**
      * @brief check move of the pawn and 
      * 
      * @param {chess_t *} chess - chess struct where is the history and selected piece 
-     * @return {void *} 
      */
-    void *pawn_highlight(chess_t *chess);
+    void pawn_highlight(chess_t *chess);
 
     /**
      * @brief check move of the pawn and 
      * 
      * @param {chess_t *} chess - chess struct where is the history and selected piece 
-     * @return {void *} 
      */
-    void *pawn_move(chess_t *chess);
+    void pawn_move(chess_t *chess);
+
+/* pieces/knight */
+
+    /**
+     * @brief check all possibility of the knight move and return the possibilities
+     * @param {piece_t} piece - piece to cehck move
+     * @param {config_t} config - config to check the board configuration
+     * @return {char **} array of the different possibilities 
+     */
+    char **check_knight_move(piece_t piece, config_t config);
+    
+    /**
+     * @brief check move of the knight and 
+     * 
+     * @param {chess_t *} chess - chess struct where is the history and selected piece 
+     */
+    void knight_highlight(chess_t *chess);
+
+    /**
+     * @brief check move of the knight and 
+     * 
+     * @param {chess_t *} chess - chess struct where is the history and selected piece 
+     */
+    void knight_move(chess_t *chess);
+
+/* pieces/king */
+
+    /**
+     * @brief check all possibility of the king move and return the possibilities
+     * @param {piece_t} piece - piece to cehck move
+     * @param {config_t} config - config to check the board configuration
+     * @return {char **} array of the different possibilities 
+     */
+    char **check_king_move(piece_t piece, config_t config);
+    
+    /**
+     * @brief check move of the king and 
+     * 
+     * @param {chess_t *} chess - chess struct where is the history and selected piece 
+     */
+    void king_highlight(chess_t *chess);
+
+    /**
+     * @brief check move of the king and 
+     * 
+     * @param {chess_t *} chess - chess struct where is the history and selected piece 
+     */
+    void king_move(chess_t *chess);
+
+/* pieces/bishop */
+
+    /**
+     * @brief check all possibility of the bishop move and return the possibilities
+     * @param {piece_t} piece - piece to cehck move
+     * @param {config_t} config - config to check the board configuration
+     * @return {char **} array of the different possibilities 
+     */
+    char **check_bishop_move(piece_t piece, config_t config);
+    
+    /**
+     * @brief check move of the bishop and 
+     * 
+     * @param {chess_t *} chess - chess struct where is the history and selected piece 
+     */
+    void bishop_highlight(chess_t *chess);
+
+    /**
+     * @brief check move of the bishop and 
+     * 
+     * @param {chess_t *} chess - chess struct where is the history and selected piece 
+     */
+    void bishop_move(chess_t *chess);
+
+/* pieces/rock */
+
+    /**
+     * @brief check all possibility of the rock move and return the possibilities
+     * @param {piece_t} piece - piece to cehck move
+     * @param {config_t} config - config to check the board configuration
+     * @return {char **} array of the different possibilities 
+     */
+    char **check_rock_move(piece_t piece, config_t config);
+    
+    /**
+     * @brief check move of the rock and 
+     * 
+     * @param {chess_t *} chess - chess struct where is the history and selected piece 
+     */
+    void rock_highlight(chess_t *chess);
+
+    /**
+     * @brief check move of the rock and 
+     * 
+     * @param {chess_t *} chess - chess struct where is the history and selected piece 
+     */
+    void rock_move(chess_t *chess);
+
+/* pieces/queen */
+
+    /**
+     * @brief check all possibility of the queen move and return the possibilities
+     * @param {piece_t} piece - piece to cehck move
+     * @param {config_t} config - config to check the board configuration
+     * @return {char **} array of the different possibilities 
+     */
+    char **check_queen_move(piece_t piece, config_t config);
+    
+    /**
+     * @brief check move of the queen and 
+     * 
+     * @param {chess_t *} chess - chess struct where is the history and selected piece 
+     */
+    void queen_highlight(chess_t *chess);
+
+    /**
+     * @brief check move of the queen and 
+     * 
+     * @param {chess_t *} chess - chess struct where is the history and selected piece 
+     */
+    void queen_move(chess_t *chess);
 
 #endif /* !CHESS_H_ */
