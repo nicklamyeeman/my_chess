@@ -27,6 +27,14 @@ e_state game_state(chess_t *chess)
             print_piece(chess->game.pieces[k]);
         return (GAME_STATE_W);
     }
+    if (chess->state == GAME_STATE_W && chess->game.turn == NEXT_TURN) {
+        chess->state = GAME_STATE_B;
+        chess->game.turn = SELECT_PIECE;
+    }
+    if (chess->state == GAME_STATE_B && chess->game.turn == NEXT_TURN) {
+        chess->state = GAME_STATE_W;
+        chess->game.turn = SELECT_PIECE;
+    }
     return chess->state;
 }
 
@@ -43,6 +51,10 @@ void chess_loop(chess_t chess)
         if (k == 32 && (chess.state == GAME_STATE_W || chess.state == GAME_STATE_B))
             chess.state = CLEAR_MENU_STATE;
         chess.state = game_state(&chess);
+        if (chess.config.board != NULL) {
+            for (int i = 0; chess.config.board[i] != NULL; i++)
+                mvprintw(i, 0, "%s", chess.config.board[i]);
+        }
     }
     endwin();
 }

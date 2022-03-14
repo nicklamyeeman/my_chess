@@ -28,6 +28,7 @@ config_t update_config(e_config econfig, int nb_player, int board_size, char **m
 {
     char *board_buffer = open_read_file(BOARD);
     config_t config;
+    int i = 0;
 
     config.config = econfig;
     config.nb_player = nb_player;
@@ -36,10 +37,11 @@ config_t update_config(e_config econfig, int nb_player, int board_size, char **m
     config.case_size[0] = array_len(config.board_ressource) / 2;
     config.case_size[1] = strlen(config.board_ressource[0]) / 2;
     config.board = malloc(sizeof(char *) * (config.board_size + 1));
-    for (int i = 0; map[i] != NULL; i++) {
+    for (i = 0; map[i] != NULL; i++) {
         config.board[i] = strdup(map[i]);
         free(map[i]);
     }
+    config.board[i] = NULL;
     free(map);
     free(board_buffer);
     return (config);

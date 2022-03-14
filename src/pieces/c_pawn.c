@@ -75,5 +75,6 @@ void pawn_highlight(chess_t *chess)
 
 void pawn_move(chess_t *chess)
 {
-    (void)chess;
+    chess->config.board[chess->game.selected_piece.y][chess->game.selected_piece.x * 2] = chess->game.selected_piece.piece;
+    chess->config.board[chess->game.selected_piece.y][chess->game.selected_piece.x * 2 + 1] = chess->game.selected_piece.color;
 }

@@ -49,17 +49,21 @@ void check_game_case(chess_t *chess, MEVENT event, char color)
     piece_t piece = get_piece_at(chess->game.pieces, normalize_y, normalize_x);
 
     if (piece.ressource == NULL) {
-        (chess->game.selected_piece.ressource != NULL) ? clear_highlight(chess->config, &(chess->game)) : 0;
-        return;
-    }
-    if (piece.color == color) {
-        (chess->game.selected_piece.ressource != NULL) ? clear_highlight(chess->config, &(chess->game)) : 0;
+        if (chess->game.turn == SELECT_PIECE) {
+            (chess->game.selected_piece.ressource != NULL) ? clear_highlight(chess->config, &(chess->game)) : 0;
+        } else if (chess->game.turn == SELECT_DEST) {
+            if (chess->game.selected_piece.ressource != NULL) {
+                chess->game.turn = move_piece(chess, normalize_y, normalize_x);
+                clear_highlight(chess->config, &(chess->game));
+                print_piece(chess->game.selected_piece);
+            }
+        }
+    } else if (piece.color == color) {
+        clear_highlight(chess->config, &(chess->game));
         chess->game.selected_piece = piece;
         chess->game.turn = highlight_piece(chess);
-    // } else if (game->turn == SELECT_DEST) {
-    //     game->turn = 
     } else {
-        (chess->game.selected_piece.ressource != NULL) ? clear_highlight(chess->config, &(chess->game)) : 0;
+        clear_highlight(chess->config, &(chess->game));
         chess->game.turn = SELECT_PIECE;
     }
 }

@@ -18,6 +18,17 @@ piece_t get_piece_at(piece_t *pieces, int y, int x)
     return pieces[k];
 }
 
+void update_pieces_from_selected(chess_t *chess, int new_y, int new_x)
+{
+    for (int k = 0; chess->game.pieces[k].ressource != NULL; k++) {
+        if (chess->game.pieces[k].y == chess->game.selected_piece.y &&
+            chess->game.pieces[k].x == chess->game.selected_piece.x) {
+            chess->game.pieces[k].y = new_y;
+            chess->game.pieces[k].x = new_x;
+        }
+    }
+}
+
 void print_piece(piece_t piece)
 {
     int case_x_len = strlen(piece.ressource[0]) / 2;

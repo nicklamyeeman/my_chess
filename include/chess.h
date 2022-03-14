@@ -223,6 +223,17 @@ typedef struct s_chess
      */
     e_turn highlight_piece(chess_t *chess);
 
+    /**
+     * @brief move piece to toward click
+     * 
+     * @param {chess_t *} chess - chess struct
+     * @param {int} normalize_y - y click
+     * @param {int} normalize_x - x click 
+     * @return e_turn 
+     */
+    e_turn move_piece(chess_t *chess, int normalize_y, int normalize_x);
+
+
 /* keys */
 
     /**
@@ -326,6 +337,15 @@ typedef struct s_chess
      * @return piece_t 
      */
     piece_t get_piece_at(piece_t *pieces, int y, int x);
+
+    /**
+     * @brief 
+     * 
+     * @param chess 
+     * @param old_y 
+     * @param old_x 
+     */
+    void update_pieces_from_selected(chess_t *chess, int old_y, int old_x);
 
     /**
      * @brief print a piece

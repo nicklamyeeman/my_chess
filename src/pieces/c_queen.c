@@ -30,8 +30,7 @@ char **check_queen_move(piece_t piece, config_t config)
                 (piece.x + directions[k + 1] * mul >= 0 && piece.x + directions[k + 1] * mul < config.board_size)) {
                 if (config.board[piece.y + directions[k] * mul][(piece.x + directions[k + 1] * mul) * 2] == '-') {
                     asprintf(&possibilities[i++], "%d%d", piece.y + directions[k] * mul, piece.x + directions[k + 1] * mul);
-                }
-                else if (config.board[piece.y + directions[k] * mul][(piece.x + directions[k + 1] * mul) * 2 + 1] != piece.color) {
+                } else if (config.board[piece.y + directions[k] * mul][(piece.x + directions[k + 1] * mul) * 2 + 1] != piece.color) {
                     asprintf(&possibilities[i++], "%d%d", piece.y + directions[k] * mul, piece.x + directions[k + 1] * mul);
                     break;
                 } else
