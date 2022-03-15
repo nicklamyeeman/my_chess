@@ -56,13 +56,7 @@ e_turn move_piece(chess_t *chess, int normalize_y, int normalize_x)
     for (int k = 0; chess->game.selected_piece.possible_moves[k] != NULL; k++) {
         if (chess->game.selected_piece.possible_moves[k][0] - '0' == normalize_y &&
             chess->game.selected_piece.possible_moves[k][1] - '0' == normalize_x) {
-                print_board_at(chess->config, chess->game.selected_piece.y, chess->game.selected_piece.x);
-                chess->config.board[chess->game.selected_piece.y][chess->game.selected_piece.x * 2] = '-';
-                chess->config.board[chess->game.selected_piece.y][chess->game.selected_piece.x * 2 + 1] = '-';
-                update_pieces_from_selected(chess, normalize_y, normalize_x);
-                chess->game.selected_piece.y = normalize_y;
-                chess->game.selected_piece.x = normalize_x;
-                chess->game.selected_piece.p_move(chess);
+                chess->game.selected_piece.p_move(chess, normalize_y, normalize_x);
                 return NEXT_TURN;
             }
     }

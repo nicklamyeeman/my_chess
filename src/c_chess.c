@@ -53,7 +53,7 @@ void chess_loop(chess_t chess)
         chess.state = game_state(&chess);
         if (chess.config.board != NULL) {
             for (int i = 0; chess.config.board[i] != NULL; i++)
-                mvprintw(i, 0, "%s", chess.config.board[i]);
+                mvprintw(i, chess.config.board_size * chess.config.case_size[1], "%s", chess.config.board[i]);
         }
     }
     endwin();

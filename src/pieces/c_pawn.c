@@ -73,8 +73,12 @@ void pawn_highlight(chess_t *chess)
     }
 }
 
-void pawn_move(chess_t *chess)
+void pawn_move(chess_t *chess, int y, int x)
 {
-    chess->config.board[chess->game.selected_piece.y][chess->game.selected_piece.x * 2] = chess->game.selected_piece.piece;
-    chess->config.board[chess->game.selected_piece.y][chess->game.selected_piece.x * 2 + 1] = chess->game.selected_piece.color;
+    print_board_at(chess->config, chess->game.selected_piece.y, chess->game.selected_piece.x);
+    chess->config.board[chess->game.selected_piece.y][chess->game.selected_piece.x * 2] = '-';
+    chess->config.board[chess->game.selected_piece.y][chess->game.selected_piece.x * 2 + 1] = '-';
+    update_pieces_from_selected(chess, y, x);
+    chess->config.board[y][x * 2] = chess->game.selected_piece.piece;
+    chess->config.board[y][x * 2 + 1] = chess->game.selected_piece.color;
 }

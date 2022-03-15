@@ -67,7 +67,7 @@ typedef struct s_piece
     char **ressource;
     char **possible_moves;
     void (*p_highlight)(void *);
-    void (* p_move)(void *);
+    void (* p_move)(void *, int, int);
 } piece_t;
 
 typedef struct s_game
@@ -456,7 +456,7 @@ typedef struct s_chess
      * 
      * @param {chess_t *} chess - chess struct where is the history and selected piece 
      */
-    void pawn_move(chess_t *chess);
+    void pawn_move(chess_t *chess, int y, int x);
 
 /* pieces/knight */
 
@@ -480,7 +480,7 @@ typedef struct s_chess
      * 
      * @param {chess_t *} chess - chess struct where is the history and selected piece 
      */
-    void knight_move(chess_t *chess);
+    void knight_move(chess_t *chess, int y, int x);
 
 /* pieces/king */
 
@@ -504,7 +504,7 @@ typedef struct s_chess
      * 
      * @param {chess_t *} chess - chess struct where is the history and selected piece 
      */
-    void king_move(chess_t *chess);
+    void king_move(chess_t *chess, int y, int x);
 
 /* pieces/bishop */
 
@@ -528,7 +528,7 @@ typedef struct s_chess
      * 
      * @param {chess_t *} chess - chess struct where is the history and selected piece 
      */
-    void bishop_move(chess_t *chess);
+    void bishop_move(chess_t *chess, int y, int x);
 
 /* pieces/rock */
 
@@ -552,7 +552,7 @@ typedef struct s_chess
      * 
      * @param {chess_t *} chess - chess struct where is the history and selected piece 
      */
-    void rock_move(chess_t *chess);
+    void rock_move(chess_t *chess, int y, int x);
 
 /* pieces/queen */
 
@@ -576,6 +576,6 @@ typedef struct s_chess
      * 
      * @param {chess_t *} chess - chess struct where is the history and selected piece 
      */
-    void queen_move(chess_t *chess);
+    void queen_move(chess_t *chess, int y, int x);
 
 #endif /* !CHESS_H_ */
