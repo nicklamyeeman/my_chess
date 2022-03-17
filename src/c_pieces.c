@@ -7,6 +7,28 @@
 
 #include "chess.h"
 
+piece_t *delete_piece_at(piece_t *pieces, int y, int x)
+{
+    int n = 0;
+
+    for (int k = 0; pieces[k].ressource != NULL; k++) {
+        if (pieces[k].y == y && pieces[k].x == x) {
+            for (n = k + 1; pieces[n].ressource != NULL; n++) {
+                pieces[k].y = pieces[n].y;
+                pieces[k].x = pieces[n].x;
+                pieces[k].piece = pieces[n].piece;
+                pieces[k].ressource = array_copy(pieces[n].ressource);
+                pieces[k].possible_moves = array_copy(pieces[n].possible_moves);
+                pieces[k].p_highlight = pieces[n].p_highlight;
+                pieces[k].p_move = pieces[n].p_move;
+            }
+            pieces[n].ressource = NULL;
+            return pieces;
+        }
+    }
+    return pieces;
+}
+
 piece_t get_piece_at(piece_t *pieces, int y, int x)
 {
     int k = 0;

@@ -7,17 +7,40 @@
 
 #include "chess.h"
 
+char **array_copy(char **array)
+{
+	int k = 0;
+	int len = array_len(array);
+	char **copy = NULL;
+
+	if (array == NULL || len == 0)
+		return copy;
+	copy = malloc(sizeof(char *) * (len+ 1));
+	for (k = 0; k != len; k++)
+		copy[k] = strdup(array[k]);
+	copy[k] = NULL;
+	return copy;
+}
+
+void free_array(char **array)
+{
+	for (int i = 0; array[i] != NULL; i++)
+		free(array[i]);
+	free(array);
+}
+
 void free_ressource(char *buffer, char **exploded)
 {
 	free(buffer);
-	for (int i = 0; exploded[i] != NULL; i++)
-		free(exploded[i]);
-	free(exploded);
+	free_array(exploded);
 }
 
 int array_len(char **array)
 {
 	int i = 0;
+
+	if (array == NULL)
+		return 0;
 	for (i = 0; array[i] != NULL; i++);
 	return i;
 }

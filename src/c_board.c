@@ -9,8 +9,8 @@
 
 void print_board_at(config_t config, int y, int x)
 {
-    int case_x_len = strlen(config.board_ressource[0]) / 2;
-    int case_y_len = array_len(config.board_ressource) / 2;
+    int case_y_len = config.case_size[0];
+    int case_x_len = config.case_size[1];
     int x_offset = 0;
 
     if (y % 2 != x % 2)

@@ -330,6 +330,16 @@ typedef struct s_chess
 /* pieces */
 
     /**
+     * @brief 
+     * 
+     * @param pieces 
+     * @param y 
+     * @param x 
+     * @return piece_t* 
+     */
+    piece_t *delete_piece_at(piece_t *pieces, int y, int x);
+
+    /**
      * @brief Get the piece at yx position
      * 
      * @param {piece_t *} pieces - tab of pieces in the game
@@ -380,6 +390,21 @@ typedef struct s_chess
     game_t set_pieces(config_t config, game_t game);
 
 /* tools */
+
+    /**
+     * @brief 
+     * 
+     * @param array 
+     * @return char** 
+     */
+    char **array_copy(char **array);
+
+    /**
+     * @brief 
+     * 
+     * @param array 
+     */
+    void free_array(char **array);
 
     /**
      * @brief free ressource loaded previously

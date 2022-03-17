@@ -20,9 +20,9 @@ game_t init_game(void)
 
 void clear_highlight(config_t config, game_t *game)
 {
+    attron(YLLW_ON_BLCK);
     if (game->selected_piece.ressource == NULL)
         return;
-    attron(YLLW_ON_BLCK);
     print_piece(game->selected_piece);
     if (game->selected_piece.possible_moves == NULL)
         return;
@@ -56,9 +56,9 @@ e_turn move_piece(chess_t *chess, int normalize_y, int normalize_x)
     for (int k = 0; chess->game.selected_piece.possible_moves[k] != NULL; k++) {
         if (chess->game.selected_piece.possible_moves[k][0] - '0' == normalize_y &&
             chess->game.selected_piece.possible_moves[k][1] - '0' == normalize_x) {
-                chess->game.selected_piece.p_move(chess, normalize_y, normalize_x);
-                return NEXT_TURN;
-            }
+            chess->game.selected_piece.p_move(chess, normalize_y, normalize_x);
+            return NEXT_TURN;
+        }
     }
     return SELECT_PIECE;
 }
