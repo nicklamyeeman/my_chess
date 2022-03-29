@@ -5,7 +5,7 @@
 ** pawn
 */
 
-#include "chess.h"
+#include "c_chess.h"
 
 // char **check_pawn_spc(config_t config, game_t game, char **possibilities, int *i)
 // {

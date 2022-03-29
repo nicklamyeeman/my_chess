@@ -5,7 +5,7 @@
 ** keys
 */
 
-#include "chess.h"
+#include "c_chess.h"
 
 void check_menu_player(chess_t *chess, int y, int x)
 {

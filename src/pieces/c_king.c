@@ -5,7 +5,7 @@
 ** king
 */
 
-#include "chess.h"
+#include "c_chess.h"
 
 // char **check_king_spc(config_t config, game_t game, char **possibilities, int *i)
 // {

@@ -5,7 +5,7 @@
 ** knight
 */
 
-#include "chess.h"
+#include "c_chess.h"
 
 char **check_knight_move(piece_t piece, config_t config)
 {

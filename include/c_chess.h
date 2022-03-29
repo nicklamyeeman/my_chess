@@ -34,6 +34,8 @@
 #define BLCK_ON_YLLW COLOR_PAIR(2)
 #define BLCK_ON_CYAN COLOR_PAIR(3)
 #define BLCK_ON_MGNT COLOR_PAIR(4)
+#define BLCK_ON_RED  COLOR_PAIR(5)
+#define BLUE_ON_BLCK COLOR_PAIR(6)
 
 typedef enum
 {
@@ -74,6 +76,7 @@ typedef struct s_game
 {
     e_turn turn;
     piece_t *pieces;
+    piece_t king_threat;
     piece_t selected_piece;
     char **history;
 } game_t;
@@ -332,12 +335,29 @@ typedef struct s_chess
     /**
      * @brief 
      * 
+     * @param chess 
+     */
+    void check_enemy_king(chess_t *chess);
+
+    /**
+     * @brief 
+     * 
      * @param pieces 
      * @param y 
      * @param x 
      * @return piece_t* 
      */
     piece_t *delete_piece_at(piece_t *pieces, int y, int x);
+
+    /**
+     * @brief 
+     * 
+     * @param pieces 
+     * @param piece 
+     * @param color 
+     * @return piece_t 
+     */
+    piece_t find_piece(piece_t *pieces, char piece, char color);
 
     /**
      * @brief Get the piece at yx position

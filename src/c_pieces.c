@@ -5,7 +5,18 @@
 ** pieces
 */
 
-#include "chess.h"
+#include "c_chess.h"
+
+void check_enemy_king(chess_t *chess)
+{
+    for (int k = 0; chess->game.selected_piece.possible_moves[k] != NULL; k++) {
+        piece_t is_king = get_piece_at(chess->game.pieces, chess->game.selected_piece.y, chess->game.selected_piece.x);
+        if (is_king.color != chess->game.selected_piece.color && is_king.piece == 'K')
+            chess->game.king_threat = is_king;
+    }
+    chess->game.king_threat.ressource = NULL;
+}
+
 
 piece_t *delete_piece_at(piece_t *pieces, int y, int x)
 {
@@ -17,6 +28,7 @@ piece_t *delete_piece_at(piece_t *pieces, int y, int x)
                 pieces[k].y = pieces[n].y;
                 pieces[k].x = pieces[n].x;
                 pieces[k].piece = pieces[n].piece;
+                pieces[k].color = pieces[n].color;
                 pieces[k].ressource = array_copy(pieces[n].ressource);
                 pieces[k].possible_moves = array_copy(pieces[n].possible_moves);
                 pieces[k].p_highlight = pieces[n].p_highlight;
@@ -27,6 +39,17 @@ piece_t *delete_piece_at(piece_t *pieces, int y, int x)
         }
     }
     return pieces;
+}
+
+piece_t find_piece(piece_t *pieces, char piece, char color)
+{
+    int k = 0;
+
+    for (k = 0; pieces[k].ressource != NULL; k++) {
+        if (pieces[k].piece == piece && pieces[k].color == color)
+            return (pieces[k]);
+    }
+    return pieces[k];
 }
 
 piece_t get_piece_at(piece_t *pieces, int y, int x)
@@ -60,15 +83,16 @@ void print_piece(piece_t piece)
 
     if (piece.color == 'w') {
         y_offset += case_y_len;
-        if (piece.y % 2 == piece.x % 2)
+        if (piece.y % 2 != piece.x % 2)
             x_offset += case_x_len;
     } else {
-        if (piece.y % 2 != piece.x % 2)
+        if (piece.y % 2 == piece.x % 2)
             x_offset += case_x_len;
     }
     for (int y = 0; y != case_y_len; y++)
-        for (int x = 0; x != case_x_len; x++)
+        for (int x = 0; x != case_x_len; x++) {
             mvprintw(case_y_len * piece.y + y, case_x_len * piece.x + x, "%c", piece.ressource[y + y_offset][x + x_offset]);
+        }
 }
 
 int nb_pieces(char *pieces, config_t config)

@@ -5,8 +5,7 @@
 ** main
 */
 
-#include <string.h>
-#include "chess.h"
+#include "c_chess.h"
 
 int main(int ac, char **av)
 {

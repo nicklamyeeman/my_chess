@@ -5,12 +5,13 @@
 ** game
 */
 
-#include "chess.h"
+#include "c_chess.h"
 
 game_t init_game(void)
 {
     game_t game;
 
+    game.king_threat.ressource = NULL;
     game.pieces = NULL;
     game.history = NULL;
     game.selected_piece.ressource = NULL;
@@ -20,9 +21,9 @@ game_t init_game(void)
 
 void clear_highlight(config_t config, game_t *game)
 {
-    attron(YLLW_ON_BLCK);
     if (game->selected_piece.ressource == NULL)
         return;
+    attron(YLLW_ON_BLCK);
     print_piece(game->selected_piece);
     if (game->selected_piece.possible_moves == NULL)
         return;

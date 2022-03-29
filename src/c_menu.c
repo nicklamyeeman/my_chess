@@ -5,7 +5,7 @@
 ** menu
 */
 
-#include "chess.h"
+#include "c_chess.h"
 
 menu_t get_yx_menu(menu_t yx_menu)
 {

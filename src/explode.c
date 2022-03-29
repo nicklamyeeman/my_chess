@@ -5,7 +5,7 @@
 ** str to word ta
 */
 
-#include "chess.h"
+#include "c_chess.h"
 
 int nb_line(char *str, char separator)
 {

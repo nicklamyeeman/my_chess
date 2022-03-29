@@ -5,7 +5,7 @@
 ** open_read
 */
 
-#include "chess.h"
+#include "c_chess.h"
 
 char **array_copy(char **array)
 {

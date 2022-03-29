@@ -5,7 +5,7 @@
 ** queen
 */
 
-#include "chess.h"
+#include "c_chess.h"
 
 // char **check_queen_spc(config_t config, game_t game, char **possibilities, int *i)
 // {

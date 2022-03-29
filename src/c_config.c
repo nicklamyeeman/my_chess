@@ -5,19 +5,19 @@
 ** config
 */
 
-#include "chess.h"
+#include "c_chess.h"
 
 config_t init_config(void)
 {
     char **map = malloc(sizeof(char *) * 9);
-    map[0] = strdup("NwNbPwKbQbBbNbRb");
+    map[0] = strdup("RbNbBbQbKbBbNbRb");
     map[1] = strdup("PbPbPbPbPbPbPbPb");
-    map[2] = strdup("----PwQwKwPb----");
+    map[2] = strdup("----------------");
     map[3] = strdup("----------------");
-    map[4] = strdup("--QwQw--------Nw");
-    map[5] = strdup("--------Pw--Pb--");
+    map[4] = strdup("----------------");
+    map[5] = strdup("----------------");
     map[6] = strdup("PwPwPwPwPwPwPwPw");
-    map[7] = strdup("RwNwBwKwQwBwNwRw");
+    map[7] = strdup("RwNwBwQwKwBwNwRw");
     map[8] = NULL;
 
     config_t config = update_config(DEFAULT_CONFIG, 2, 8, map);

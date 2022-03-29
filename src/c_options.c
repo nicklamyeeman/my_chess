@@ -5,7 +5,7 @@
 ** options
 */
 
-#include "chess.h"
+#include "c_chess.h"
 
 void color_options(void)
 {
@@ -15,6 +15,7 @@ void color_options(void)
     init_pair(3, COLOR_BLACK, COLOR_CYAN);
     init_pair(4, COLOR_BLACK, COLOR_MAGENTA);
     init_pair(5, COLOR_BLACK, COLOR_RED);
+    init_pair(6, COLOR_BLUE, COLOR_BLACK);
 }
 
 void options(void)

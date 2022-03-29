@@ -5,7 +5,7 @@
 ** rock
 */
 
-#include "chess.h"
+#include "c_chess.h"
 
 // char **check_rock_spc(config_t config, game_t game, char **possibilities, int *i)
 // {
@@ -74,6 +74,9 @@ void rock_move(chess_t *chess, int y, int x)
     print_board_at(chess->config, chess->game.selected_piece.y, chess->game.selected_piece.x);
     chess->game.selected_piece.y = y;
     chess->game.selected_piece.x = x;
+    mvprintw(0, 0, "%c%c", chess->game.selected_piece.piece, chess->game.selected_piece.color);
     print_piece(chess->game.selected_piece);
     clear_highlight(chess->config, &(chess->game));
+    // chess->game.selected_piece.possible_moves = check_rock_move(chess->game.selected_piece, chess->config);
+    // check_enemy_king(chess);
 }
