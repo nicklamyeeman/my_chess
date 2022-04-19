@@ -90,7 +90,7 @@ You can navigate throught the menu with your mouse !
 
 The ascii menu is available at ```ressources/menu.txt```
 
-![gameplay](https://github.com/nicklamyeeman/my_sokoban/blob/main/ressources/readme/gameplay.gif)
+![gameplay](https://github.com/nicklamyeeman/my_chess/blob/main/ressources/readme/gameplay.gif)
 
 The game is playable like a board that you have at home. No check, no game over. Just restart the program to restart the game.
 
